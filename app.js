@@ -2,8 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
-const helmet = require('helmet');
 const cors = require('cors');
+const helmet = require('helmet');
 const userRouter = require('./routes/users');
 const movieRouter = require('./routes/movies');
 const auth = require('./middlewares/auth');
@@ -14,7 +14,7 @@ const { errorHandler } = require('./helpers/errorHandler');
 const { corsOptions } = require('./middlewares/allowedCors');
 
 const { PORT = 3000, NODE_ENV, MONGODB_ADDRESS } = process.env;
-const mongoDBAddress = NODE_ENV === 'production' ? MONGODB_ADDRESS : 'mongodb://127.0.0.1:27017/diplom';
+const mongoDBAddress = NODE_ENV === 'production' ? MONGODB_ADDRESS : 'mongodb://127.0.0.1:27017/bitfilmsdb';
 
 const app = express();
 
