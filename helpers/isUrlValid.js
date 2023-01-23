@@ -1,9 +1,10 @@
 const validator = require('validator');
-const BadRequestError = require('../errors/badRequestError');
+const { BAD_REQUEST_ERROR } = require('../errors/errors');
 
-module.exports.isUrlValid = (url) => {
+module.exports.isUrlValid = (url, res) => {
   if (!validator.isURL(url)) {
-    throw new BadRequestError('Некорректная ссылка');
+    return res.status(BAD_REQUEST_ERROR)
+      .json({ message: 'Invalid URL' });
   }
   return url;
 };

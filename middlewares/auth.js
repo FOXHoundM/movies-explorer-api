@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const {
-  STATUS_AUTHENTICATION_ERROR,
+  AUTHENTICATION_ERROR,
   AUTHENTICATION_ERROR_MESSAGE,
 } = require('../errors/errors');
 
@@ -11,7 +11,7 @@ const {
 
 const handleAuthError = (res) => {
   res
-    .status(STATUS_AUTHENTICATION_ERROR)
+    .status(AUTHENTICATION_ERROR)
     .json({ message: AUTHENTICATION_ERROR_MESSAGE });
 };
 
