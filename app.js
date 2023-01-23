@@ -5,24 +5,14 @@ const mongoose = require('mongoose');
 const { errors } = require('celebrate');
 const cors = require('cors');
 const helmet = require('helmet');
-const userRouter = require('./routes/users');
-const movieRouter = require('./routes/movies');
-const auth = require('./middlewares/auth');
-const {
-  login,
-  createUser,
-} = require('./controllers/users');
 const {
   requestLogger,
   errorLogger,
 } = require('./middlewares/logger');
-const {
-  validationSignin,
-  validationSignup,
-} = require('./middlewares/validator');
 const { errorHandler } = require('./helpers/errorHandler');
 const { corsOptions } = require('./middlewares/allowedCors');
 const { limiter } = require('./middlewares/rateLimit');
+const router = require('./routes');
 
 const {
   PORT = 3000,
@@ -42,23 +32,7 @@ app.use(requestLogger);
 app.use(limiter);
 app.use(helmet());
 
-app.post(
-  '/signin',
-  validationSignin,
-  login,
-);
-
-app.post(
-  '/signup',
-  validationSignup,
-  createUser,
-);
-
-app.use('/users', auth, userRouter);
-app.use('/movies', auth, movieRouter);
-
-app.use('*', (req, res) => res.status(404)
-  .json({ message: 'Произошла ошибка, передан некорректный путь' }));
+app.use(router);
 
 app.use(errorLogger);
 app.use(errors());
